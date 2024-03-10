@@ -9,7 +9,7 @@ import org.jetbrains.exposed.dao.id.IntIdTable
 
 
 fun Route.user() {
-    val repository: UserRepository by inject()
+    val repository: UserRepository<Any?> by inject()
 
     data class User(val name: String, val email: String)
 
@@ -24,17 +24,13 @@ fun Route.user() {
         }
 
     }
-    get("/user/{id}") {
-        val id = call.parameters["id"]?.toIntOrNull()
-        if (id == null) {
-            call.respond("Invalid id")
+    get("/user/{email}") {
+        val email = call.parameters["email"] ?: return@get call.respond("Missing or malformed email")
+        val user = repository.find(email)
+        if (user != null) {
+            call.respond(user)
         } else {
-            val user = repository.getById(id)
-            if (user == null) {
-                call.respond("User not found")
-            } else {
-                call.respond(user)
-            }
+            call.respond("User not found")
         }
     }
 }
