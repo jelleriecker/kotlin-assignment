@@ -5,6 +5,8 @@ val vertxVersion: String by project
 val postgresVersion: String by project
 val dotenvVersion: String by project
 val koinVersion: String by project
+val exposedVersion: String by project
+val jbcryptVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
@@ -46,4 +48,14 @@ dependencies {
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    // Jelle's dependencies
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.8")
+    implementation("org.mindrot:jbcrypt:$jbcryptVersion")
+    implementation("io.ktor.features.StatusPages:$ktorVersion")
+
 }
+

@@ -9,6 +9,9 @@ import io.memorix.user.userDi
 import org.koin.core.Koin
 import org.koin.core.context.startKoin
 import org.koin.environmentProperties
+import io.memorix.database.DatabaseFactory
+import io.ktor.server.engine.embeddedServer
+
 
 fun main() {
     embeddedServer(CIO, port = 8080, host = "0.0.0.0", module = Application::module)
@@ -20,6 +23,8 @@ fun Application.module() {
     configureHTTP()
     configureSerialization()
     configureRouting()
+    DatabaseFactory.init()
+
 }
 
 fun startKoin(): Koin = startKoin {
