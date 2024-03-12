@@ -14,15 +14,18 @@ fun Route.user() {
     get("/list") {
         try {
             val users = getAllUsers()
-            call.respond(users)
+
+
+
+            call.respond(users.toString())
         } catch (e: Exception) {
             call.respond(HttpStatusCode.InternalServerError, e.localizedMessage)
         }
     }
     post("/adduser") {
         try {
-            val user = call.receive<User>()
-            addUser(user)
+            val users = call.receive<User>()
+            addUser(users)
             call.respond(HttpStatusCode.Created)
         } catch (e: IllegalArgumentException) {
             call.respond(HttpStatusCode.BadRequest, e.localizedMessage)
