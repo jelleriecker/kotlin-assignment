@@ -43,8 +43,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
 
-    // Ktorm
-    // implementation("org.ktorm:ktorm-core:$ktormVersion")
+    // JSON
 
     // dotenv
     implementation("io.github.cdimascio:dotenv-kotlin:$dotenvVersion")
