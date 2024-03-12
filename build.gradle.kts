@@ -5,6 +5,9 @@ val vertxVersion: String by project
 val postgresVersion: String by project
 val dotenvVersion: String by project
 val koinVersion: String by project
+val jbcryptVersion: String by project
+val exposedVersion: String by project
+val ktormVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
@@ -27,6 +30,7 @@ repositories {
 }
 
 dependencies {
+    // Ktor
     implementation("io.ktor:ktor-server-auto-head-response-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-cio-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-core-jvm:$ktorVersion")
@@ -38,12 +42,36 @@ dependencies {
     implementation("io.ktor:ktor-server-default-headers-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
+
+    // Ktorm
+    // implementation("org.ktorm:ktorm-core:$ktormVersion")
+
+    // dotenv
     implementation("io.github.cdimascio:dotenv-kotlin:$dotenvVersion")
+
+    // Vertx
     implementation("io.vertx:vertx-jdbc-client:$vertxVersion")
+
+    // Postgres
     implementation("org.postgresql:postgresql:$postgresVersion")
+
+    // Logging
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
+
+    // Koin
     implementation("io.insert-koin:koin-ktor:$koinVersion")
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
+
+    // Test
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+
+    // jbcrypt
+    implementation("org.mindrot:jbcrypt:$jbcryptVersion")
+
+    // Exposed
+    implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
+    implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
 }
