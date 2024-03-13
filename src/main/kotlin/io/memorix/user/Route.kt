@@ -19,6 +19,7 @@ fun Route.user() {
                 tablename = "users",
                 columns = users
             )
+            call.respond(HttpStatusCode.Found, "here should be a list with all users from DB")
             call.respond(response)
         } catch (e: Exception) {
             call.respond(HttpStatusCode.InternalServerError, e.localizedMessage)
@@ -31,9 +32,9 @@ fun Route.user() {
         try {
             val users = call.receive<User>()
             addUser(users)
-            call.respond(HttpStatusCode.Created)
+            call.respond(HttpStatusCode.Accepted, "User added successfully")
         } catch (e: IllegalArgumentException) {
-            call.respond(HttpStatusCode.BadRequest, e.localizedMessage)
+            call.respond(HttpStatusCode.BadRequest, "Something seems wrong here, did you check for duplicates?")
         }
     }
 }

@@ -12,5 +12,5 @@ data class User(
 @Serializable
 data class UsersResponse(
     val tablename: String,
-    val columns: List<Map<String, String>>
+    val columns: List<User>
 )
