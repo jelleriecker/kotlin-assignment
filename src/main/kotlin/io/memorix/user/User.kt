@@ -1,3 +1,16 @@
 package io.memorix.user
 
-data class User(val name: String, val email: String, val password_hash: String)
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class User(
+    val email: String,
+    val name: String,
+    val password_hash: String
+)
+
+@Serializable
+data class UsersResponse(
+    val tablename: String,
+    val columns: List<Map<String, String>>
+)

@@ -7,7 +7,7 @@ val dotenvVersion: String by project
 val koinVersion: String by project
 val jbcryptVersion: String by project
 val exposedVersion: String by project
-val ktormVersion: String by project
+val jacksonVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
@@ -72,5 +72,10 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
+    // Jackson
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+
+
 
 }
