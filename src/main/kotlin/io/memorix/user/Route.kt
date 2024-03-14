@@ -10,25 +10,44 @@ import io.ktor.server.routing.*
 fun Route.user() {
 //    val repository: UserRepository by inject()
 
+
     // Add your routes here
 
+    /**
+     * GET /users route.
+     * This route is currently commented out and needs to be fixed.
+     * It is intended to query users based on the provided parameters.
+     */
+// TODO fix the route to query users.
     get("/users") {
-        try {
-            val users = getAllUsers()
-            val response = UsersResponse(
-                tablename = "users",
-                columns = users
-            )
-            call.respond(HttpStatusCode.Found, "here should be a list with all users from DB")
-            call.respond(response)
-        } catch (e: Exception) {
-            call.respond(HttpStatusCode.InternalServerError, e.localizedMessage)
-        }
+//        val query = call.request.queryParameters["query"] ?: ""
+//        val limit = call.request.queryParameters["limit"]?.toIntOrNull() ?: 10
+
+//        val users = transaction {
+//            Users.select { Users.name like "${query}%" }  //TODO find out how like works
+//                .limit(limit)
+//                .map {
+//                    User(
+//                        it[Users.email],
+//                        it[Users.name],
+//                        it[Users.password_hash]
+//                    )
+//                }
+//        }
+//
+//        val total = transaction {
+//            Users.select { Users.name like "${query}%" }.count() //TODO find out how like works
+//        }
+//
+//        call.respond(mapOf("users" to users, "total" to total))
     }
 
-
+    /**
+     * POST /users route.
+     * This route is used to add a new user.
+     * It expects a User object in the request body.
+     */
     post("/users") {
-//        TODO("post requests return 405's, need to fix this.")
         try {
             val users = call.receive<User>()
             addUser(users)
