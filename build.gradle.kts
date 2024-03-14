@@ -41,9 +41,10 @@ dependencies {
     implementation("io.ktor:ktor-server-compression-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-default-headers-jvm:$ktorVersion")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktorVersion")
+    // JSON
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktorVersion")
 
-    // JSON
+
 
     // dotenv
     implementation("io.github.cdimascio:dotenv-kotlin:$dotenvVersion")
@@ -72,6 +73,7 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposedVersion")
+
 
     // Jackson
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
