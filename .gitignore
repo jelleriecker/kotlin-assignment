@@ -37,3 +37,4 @@ out/
 
 ### Config ###
 .env
+.dockercompose-env

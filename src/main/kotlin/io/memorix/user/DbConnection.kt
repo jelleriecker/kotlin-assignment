@@ -1,6 +1,7 @@
 package io.memorix.user
 
 import io.github.cdimascio.dotenv.Dotenv
+
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Table
@@ -24,22 +25,15 @@ object Users : Table() {
  * The function then connects to the database and creates the Users table if it doesn't exist.
  */
 fun initDatabase() {
-    val dotenv = Dotenv.configure().load() //TODO FIX .env references this is obviously not the way to go, sharing creds....
+    val dotenv = Dotenv.configure().load()
 
-    val dbUser = dotenv["DB_USER"]
-    val dbPass = dotenv["DB_PASS"]
-    val dbDr = dotenv["DB_DRIVER"]
-    val dbUrl = dotenv["DB_URL"]
     Database.connect(
-//        url = "jdbc:postgresql://localhost:5432/ktor",
-//        driver = "org.postgresql.Driver",
-//        user = "jelle",
-//        password = "riecker",
-        url = dbUrl,
-        driver = dbDr,
-        user = dbUser,
-        password = dbPass,
+        url = dotenv["DB_URL"]!!,
+        driver = dotenv["DB_DRIVER"]!!,
+        user = dotenv["DB_USER"]!!,
+        password = dotenv["DB_PASS"]!!
     )
+
     transaction {
         // Create tables if they don't exist
         SchemaUtils.create(Users)

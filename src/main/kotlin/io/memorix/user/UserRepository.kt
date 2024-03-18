@@ -2,8 +2,10 @@ package io.memorix.user
 
 import io.vertx.jdbcclient.JDBCPool
 import org.jetbrains.exposed.sql.insert
+import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.mindrot.jbcrypt.BCrypt
+
 
 /**
  * UserRepository class.
@@ -48,22 +50,13 @@ fun addUser(user: User) {
  * @return A list of User objects.
  */
 
-//fun getUsersByName(name: String, limit: Int): List<User> {
-//    return transaction {
-//        Users.selectAll().where { Users.name like "$name%" }
-//            .limit(limit)
-//            .map { User(it[Users.email], it[Users.name]) }
-//    }
-//}
+fun searchUsers(name: String, limit: Int): List<User> {
+    return transaction {
+        val nameParameter = "$name%"
+        Users.selectAll().where { Users.name like nameParameter }
+            .limit(limit)
+            .map { User(it[Users.email], it[Users.name], it[Users.password_hash]) }
+    }
+}
 
-//fun getAllUsers(): List<User> {
-//    return transaction {
-//        Users.selectAll().map {
-//            User(
-//                it[Users.name],
-//                it[Users.email],
-//                it[Users.password_hash]
-//            )
-//        }
-//    }
 

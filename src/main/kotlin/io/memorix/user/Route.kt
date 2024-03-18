@@ -20,27 +20,36 @@ fun Route.user() {
      */
 // TODO fix the route to query users.
     get("/users") {
-//        val query = call.request.queryParameters["query"] ?: ""
-//        val limit = call.request.queryParameters["limit"]?.toIntOrNull() ?: 10
+        val query = call.parameters["query"] ?: ""
+        val limit = call.parameters["limit"]?.toInt() ?: 10
 
-//        val users = transaction {
-//            Users.select { Users.name like "${query}%" }  //TODO find out how like works
-//                .limit(limit)
-//                .map {
-//                    User(
-//                        it[Users.email],
-//                        it[Users.name],
-//                        it[Users.password_hash]
-//                    )
-//                }
-//        }
-//
-//        val total = transaction {
-//            Users.select { Users.name like "${query}%" }.count() //TODO find out how like works
-//        }
-//
-//        call.respond(mapOf("users" to users, "total" to total))
+        val users = searchUsers(query, limit)
+
+        val total = users.size
+        val response = mapOf("users" to users, "total" to total)
+
+        // Convert the LinkedHashMap to a serializable map
+        val serializableResponse = response.mapValues { it.value.toString() }
+
+        call.respond(serializableResponse)
+
+//        val response = mapOf("users" to users, "total" to total)
+
+//        call.respond(response)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * POST /users route.
@@ -56,6 +65,7 @@ fun Route.user() {
             call.respond(HttpStatusCode.BadRequest, "Something seems wrong here, did you check for duplicates?")
         }
     }
+
 }
 
 
