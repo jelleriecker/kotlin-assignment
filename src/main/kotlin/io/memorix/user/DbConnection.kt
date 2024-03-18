@@ -1,7 +1,6 @@
 package io.memorix.user
 
 import io.github.cdimascio.dotenv.Dotenv
-
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Table
@@ -26,16 +25,24 @@ object Users : Table() {
  */
 fun initDatabase() {
     val dotenv = Dotenv.configure().load()
+    var connection: Database? = null
 
-    Database.connect(
-        url = dotenv["DB_URL"]!!,
-        driver = dotenv["DB_DRIVER"]!!,
-        user = dotenv["DB_USER"]!!,
-        password = dotenv["DB_PASS"]!!
-    )
+    try {
+        connection = Database.connect(
+            url = dotenv["DB_URL"]!!,
+            driver = dotenv["DB_DRIVER"]!!,
+            user = dotenv["DB_USER"]!!,
+            password = dotenv["DB_PASS"]!!
+        )
 
-    transaction {
-        // Create tables if they don't exist
-        SchemaUtils.create(Users)
+        transaction {
+            // Create tables if they don't exist
+            SchemaUtils.create(Users)
+        }
+    } finally {
+        connection?.let {
+            // Close the connection
+            it.connector().close()
+        }
     }
 }

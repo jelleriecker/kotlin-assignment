@@ -25,8 +25,6 @@ fun Application.module() {
     configureHTTP()
     configureSerialization()
     configureRouting()
-
-
 }
 
 fun startKoin(): Koin = startKoin {

@@ -8,48 +8,33 @@ import io.ktor.server.routing.*
 
 
 fun Route.user() {
-//    val repository: UserRepository by inject()
-
+//    val repository: UserRepository by inject() // TODO: find out what this does
 
     // Add your routes here
-
     /**
      * GET /users route.
      * This route is currently commented out and needs to be fixed.
      * It is intended to query users based on the provided parameters.
      */
-// TODO fix the route to query users.
     get("/users") {
+        // Get the query and limit parameters from the request
         val query = call.parameters["query"] ?: ""
         val limit = call.parameters["limit"]?.toInt() ?: 10
 
+        // call repository method
         val users = searchUsers(query, limit)
 
+        // Get the total number of users
         val total = users.size
+
+        // Create a map with the users and the total number of users
         val response = mapOf("users" to users, "total" to total)
 
         // Convert the LinkedHashMap to a serializable map
         val serializableResponse = response.mapValues { it.value.toString() }
 
         call.respond(serializableResponse)
-
-//        val response = mapOf("users" to users, "total" to total)
-
-//        call.respond(response)
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      * POST /users route.
@@ -65,7 +50,6 @@ fun Route.user() {
             call.respond(HttpStatusCode.BadRequest, "Something seems wrong here, did you check for duplicates?")
         }
     }
-
 }
 
 

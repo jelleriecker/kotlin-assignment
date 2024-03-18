@@ -19,17 +19,3 @@ data class User(
     val password_hash: String
 )
 
-/**
- * UserResponse data class.
- * This class represents a response containing user information.
- * It is marked as Serializable to allow it to be converted to and from JSON.
- * It contains two properties: email and name.
- *
- * @property email The email of the user. It is a unique identifier for the user.
- * @property name The name of the user.
- */
-@Serializable
-data class UserResponse(
-    val email: String,
-    val name: String,
-)

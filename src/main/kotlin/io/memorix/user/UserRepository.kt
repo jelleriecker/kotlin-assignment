@@ -21,26 +21,6 @@ class UserRepository(
     // Add your repository methods here
 
 /**
- * Adds a new user to the database.
- * This function uses a transaction to ensure that the operation is atomic.
- * The password is hashed using BCrypt before being stored in the database.
- *
- * @param user The User object to be added to the database.
- */
-fun addUser(user: User) {
-    transaction {
-        Users.insert {
-            it[name] = user.name
-            it[email] = user.email
-            it[password_hash] = BCrypt.hashpw(user.password_hash, BCrypt.gensalt())
-        }
-    }
-}
-
-
-// The following methods are currently commented out
-
-/**
  * Retrieves users from the database by name.
  * This function uses a transaction to ensure that the operation is atomic.
  * The function returns a list of User objects.
@@ -59,4 +39,19 @@ fun searchUsers(name: String, limit: Int): List<User> {
     }
 }
 
-
+/**
+ * Adds a new user to the database.
+ * This function uses a transaction to ensure that the operation is atomic.
+ * The password is hashed using BCrypt before being stored in the database.
+ *
+ * @param user The User object to be added to the database.
+ */
+fun addUser(user: User) {
+    transaction {
+        Users.insert {
+            it[name] = user.name
+            it[email] = user.email
+            it[password_hash] = BCrypt.hashpw(user.password_hash, BCrypt.gensalt())
+        }
+    }
+}
