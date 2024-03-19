@@ -35,7 +35,7 @@ fun searchUsers(name: String, limit: Int): List<User> {
         val nameParameter = "$name%"
         Users.selectAll().where { Users.name like nameParameter }
             .limit(limit)
-            .map { User(it[Users.email], it[Users.name], it[Users.password_hash]) }
+            .map { User(it[Users.email], it[Users.name], "") }
     }
 }
 
