@@ -8,6 +8,8 @@ val koinVersion: String by project
 val jbcryptVersion: String by project
 val exposedVersion: String by project
 val jacksonVersion: String by project
+val assertjVersion: String by project
+val junitApiVersion: String by project
 
 plugins {
     kotlin("jvm") version "1.9.22"
@@ -65,6 +67,10 @@ dependencies {
     // Test
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktorVersion")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
+    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("org.assertj:assertj-core:$assertjVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitApiVersion")
+
 
     // jbcrypt
     implementation("org.mindrot:jbcrypt:$jbcryptVersion")
